@@ -64,11 +64,3 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
 class DriverDetailView(LoginRequiredMixin, generic.DetailView):
     model = Driver
     queryset = Driver.objects.prefetch_related("cars__manufacturer")
-
-
-@login_required
-def test_session_view(req: HttpRequest) -> HttpResponse:
-    return HttpResponse(
-        "<h1>Test Session</h1>"
-        f"<h4>Session data: {req.session.get('book')} </h4>"
-    )

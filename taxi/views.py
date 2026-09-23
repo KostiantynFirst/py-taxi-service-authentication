@@ -1,5 +1,6 @@
 from urllib import request
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
@@ -8,6 +9,7 @@ from django.views import generic
 from .models import Driver, Car, Manufacturer
 
 
+@login_required
 def index(req):
     """View function for the home page of the site."""
 
@@ -64,6 +66,7 @@ class DriverDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Driver.objects.prefetch_related("cars__manufacturer")
 
 
+@login_required
 def test_session_view(req: HttpRequest) -> HttpResponse:
     return HttpResponse(
         "<h1>Test Session</h1>"
